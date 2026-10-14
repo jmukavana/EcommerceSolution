@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Received</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f6f9;font-family:'Segoe UI',Arial,sans-serif;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f9;padding:40px 0;">
+    <tr>
+      <td align="center">
+        <table width="520" cellpadding="0" cellspacing="0"
+               style="background:#ffffff;border-radius:12px;overflow:hidden;
+                      box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+
+          <!-- Header -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#15803d 0%,#166534 100%);
+                       padding:36px 40px;text-align:center;">
+              <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:700;">
+                Payment Received ✓
+              </h1>
+              <p style="margin:8px 0 0;color:#86efac;font-size:14px;"
+                 th:text="'Order #' + ${order.orderNumber}">Order #ORD-001</p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:36px 40px;">
+              <p style="margin:0 0 16px;color:#374151;font-size:16px;">
+                Hello <strong th:text="${recipientName}">Customer</strong>,
+              </p>
+              <p style="margin:0 0 28px;color:#6b7280;font-size:15px;line-height:1.6;">
+                We've successfully received your payment. Here are the details:
+              </p>
+
+              <!-- Payment details box -->
+              <table width="100%" cellpadding="0" cellspacing="0"
+                     style="background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0;
+                            margin-bottom:24px;">
+                <tr>
+                  <td style="padding:24px;">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="color:#6b7280;font-size:14px;padding:4px 0;">Amount Paid</td>
+                        <td style="color:#15803d;font-size:18px;font-weight:700;text-align:right;"
+                            th:text="${'$' + payment.amount}">$0.00</td>
+                      </tr>
+                      <tr>
+                        <td style="color:#6b7280;font-size:14px;padding:4px 0;">Payment Method</td>
+                        <td style="color:#374151;font-size:14px;text-align:right;"
+                            th:text="${payment.method}">CASH_ON_DELIVERY</td>
+                      </tr>
+                      <tr th:if="${payment.gatewayReference}">
+                        <td style="color:#6b7280;font-size:14px;padding:4px 0;">Reference</td>
+                        <td style="color:#374151;font-size:14px;text-align:right;"
+                            th:text="${payment.gatewayReference}">REF-001</td>
+                      </tr>
+                      <tr>
+                        <td style="color:#6b7280;font-size:14px;padding:4px 0;">Date</td>
+                        <td style="color:#374151;font-size:14px;text-align:right;"
+                            th:text="${#temporals.format(payment.paidAt, 'dd MMM yyyy HH:mm')}">01 Jan 2025</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:0;color:#9ca3af;font-size:13px;line-height:1.6;">
+                Please keep this email as your payment receipt. If you have any questions,
+                contact our support team with your order number.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background:#f9fafb;padding:20px 40px;
+                       border-top:1px solid #e5e7eb;text-align:center;">
+              <p style="margin:0;color:#9ca3af;font-size:12px;">
+                &copy; 2025 Ecommerce Platform. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

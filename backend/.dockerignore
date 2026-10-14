@@ -1,0 +1,21 @@
+# Gradle
+.gradle
+build
+out
+target
+
+# IDE
+.idea
+*.iml
+
+# Logs
+*.log
+
+# Git
+.git
+
+# Tests (optional)
+src/test
+
+# Help/docs (optional)
+HELP.md

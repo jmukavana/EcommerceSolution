@@ -1,0 +1,21 @@
+{
+  "name": "frontend",
+  "private": true,
+  "scripts": {
+    "build": "PATH=\"$HOME/.local/bin:$PATH\" turbo run build",
+    "dev": "PATH=\"$HOME/.local/bin:$PATH\" turbo run dev",
+    "lint": "PATH=\"$HOME/.local/bin:$PATH\" turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "PATH=\"$HOME/.local/bin:$PATH\" turbo run check-types",
+    "start": "PATH=\"$HOME/.local/bin:$PATH\" turbo run start"
+  },
+  "devDependencies": {
+    "prettier": "^3.7.4",
+    "turbo": "^2.9.6",
+    "typescript": "5.9.2"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
+  }
+}

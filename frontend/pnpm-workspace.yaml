@@ -1,0 +1,9 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# pnpm 11 blocks dependency install scripts unless listed here, and makes an
+# unapproved one a hard error.
+allowBuilds:
+  # Next.js image optimisation, via prebuilt @img/sharp-* binaries.
+  sharp: true

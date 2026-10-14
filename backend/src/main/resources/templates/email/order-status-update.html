@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Update</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f6f9;font-family:'Segoe UI',Arial,sans-serif;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f9;padding:40px 0;">
+    <tr>
+      <td align="center">
+        <table width="520" cellpadding="0" cellspacing="0"
+               style="background:#ffffff;border-radius:12px;overflow:hidden;
+                      box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+
+          <!-- Header — colour changes per status -->
+          <tr>
+            <td th:style="${status == 'DELIVERED'} ? 'background:linear-gradient(135deg,#15803d,#166534);padding:36px 40px;text-align:center;'
+                         : (${status == 'CANCELLED'} ? 'background:linear-gradient(135deg,#b91c1c,#991b1b);padding:36px 40px;text-align:center;'
+                         : 'background:linear-gradient(135deg,#1a1a2e,#16213e);padding:36px 40px;text-align:center;')">
+              <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:700;">
+                Order Update
+              </h1>
+              <p style="margin:8px 0 0;color:#94a3b8;font-size:14px;"
+                 th:text="'Order #' + ${order.orderNumber}">Order #ORD-001</p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:36px 40px;">
+              <p style="margin:0 0 16px;color:#374151;font-size:16px;">
+                Hello <strong th:text="${recipientName}">Customer</strong>,
+              </p>
+
+              <!-- Status badge -->
+              <div style="text-align:center;margin:0 0 28px;">
+                <span th:text="${status}"
+                      th:style="${status == 'DELIVERED'} ? 'display:inline-block;background:#dcfce7;color:#15803d;border-radius:9999px;padding:8px 24px;font-size:15px;font-weight:700;'
+                               : (${status == 'CANCELLED'} ? 'display:inline-block;background:#fee2e2;color:#b91c1c;border-radius:9999px;padding:8px 24px;font-size:15px;font-weight:700;'
+                               : (${status == 'SHIPPED'} ? 'display:inline-block;background:#dbeafe;color:#1d4ed8;border-radius:9999px;padding:8px 24px;font-size:15px;font-weight:700;'
+                               : 'display:inline-block;background:#fef9c3;color:#854d0e;border-radius:9999px;padding:8px 24px;font-size:15px;font-weight:700;'))">
+                  PROCESSING
+                </span>
+              </div>
+
+              <p style="margin:0 0 8px;color:#6b7280;font-size:15px;line-height:1.6;"
+                 th:switch="${status}">
+                <span th:case="'CONFIRMED'">Your order has been confirmed and is being prepared.</span>
+                <span th:case="'PROCESSING'">Your order is now being processed at our warehouse.</span>
+                <span th:case="'SHIPPED'">Great news — your order is on its way!</span>
+                <span th:case="'DELIVERED'">Your order has been delivered. Enjoy!</span>
+                <span th:case="'CANCELLED'">Your order has been cancelled.
+                  <span th:if="${order.cancelReason}" th:text="'Reason: ' + ${order.cancelReason}"></span>
+                </span>
+                <span th:case="*">Your order status has been updated.</span>
+              </p>
+
+              <!-- Order reference -->
+              <table width="100%" cellpadding="0" cellspacing="0"
+                     style="background:#f8faff;border-left:4px solid #3b82f6;
+                            border-radius:4px;margin-top:20px;">
+                <tr>
+                  <td style="padding:14px 18px;color:#374151;font-size:14px;">
+                    <strong>Order:</strong>
+                    <span th:text="${order.orderNumber}">ORD-001</span>
+                    &nbsp;|&nbsp;
+                    <strong>Total:</strong>
+                    <span th:text="${'$' + order.total}">$0.00</span>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:24px 0 0;color:#9ca3af;font-size:13px;line-height:1.6;">
+                If you have any questions about your order, please contact our support team.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background:#f9fafb;padding:20px 40px;
+                       border-top:1px solid #e5e7eb;text-align:center;">
+              <p style="margin:0;color:#9ca3af;font-size:12px;">
+                &copy; 2025 Ecommerce Platform. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

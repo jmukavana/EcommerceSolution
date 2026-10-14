@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: backend
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/backend_db
+    username: admin
+    password: 1973
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+  elasticsearch:
+    uris: http://localhost:9200
+
+server:
+  port: 8050
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    try-it-out-enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
+    filter: true
+  api-docs:
+    path: /v3/api-docs
+
+app:
+  admin:
+    email: jamlechmukavana9@gmail.com
+    password: Admin@1234
+    first-name: System
+    last-name: Admin
+    phone: "+254000000000"
+  security:
+    jwt:
+      access-token-expiration: 900000       # 15 minutes in ms
+      refresh-token-expiration: 604800000   # 7 days in ms
+  mfa:
+    otp-expiry-minutes: 5
+    otp-length: 6
+  email:
+    host: zmail.emtechhouse.co.ke
+    port: 465
+    username: Banca-noreply@emtechhouse.co.ke
+    password: Banca@2025
+    from-address: Banca-noreply@emtechhouse.co.ke
+    from-name: Ecommerce Platform
+    ssl-trust: zmail.emtechhouse.co.ke
+
+minio:
+  endpoint: http://localhost:9000
+  access-key: minioadmin
+  secret-key: minioadmin
+  bucket-products: products
+  bucket-avatars: avatars
+
+mpesa:
+  base-url: https://sandbox.safaricom.co.ke
+  consumer-key: ${MPESA_CONSUMER_KEY:your-consumer-key}
+  consumer-secret: ${MPESA_CONSUMER_SECRET:your-consumer-secret}
+  shortcode: ${MPESA_SHORTCODE:174379}
+  passkey: ${MPESA_PASSKEY:bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919}
+  callback-url: ${MPESA_CALLBACK_URL:https://yourdomain.com/api/v1/payments/mpesa/callback}
+  transaction-type: CustomerPayBillOnline
+

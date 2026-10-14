@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Confirmed</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f6f9;font-family:'Segoe UI',Arial,sans-serif;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f9;padding:40px 0;">
+    <tr>
+      <td align="center">
+        <table width="580" cellpadding="0" cellspacing="0"
+               style="background:#ffffff;border-radius:12px;overflow:hidden;
+                      box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+
+          <!-- Header -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);
+                       padding:36px 40px;text-align:center;">
+              <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:700;">
+                Order Confirmed ✓
+              </h1>
+              <p style="margin:8px 0 0;color:#94a3b8;font-size:14px;"
+                 th:text="'Order #' + ${order.orderNumber}">Order #ORD-001</p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:36px 40px;">
+              <p style="margin:0 0 16px;color:#374151;font-size:16px;">
+                Hello <strong th:text="${recipientName}">Customer</strong>,
+              </p>
+              <p style="margin:0 0 28px;color:#6b7280;font-size:15px;line-height:1.6;">
+                Thank you for your order! We've received it and will begin processing shortly.
+              </p>
+
+              <!-- Order Summary Box -->
+              <table width="100%" cellpadding="0" cellspacing="0"
+                     style="background:#f8faff;border-radius:8px;border:1px solid #e2e8f0;
+                            margin-bottom:28px;">
+                <tr>
+                  <td style="padding:20px 24px;">
+                    <p style="margin:0 0 16px;color:#1e293b;font-size:14px;font-weight:700;
+                               text-transform:uppercase;letter-spacing:0.5px;">Order Summary</p>
+
+                    <!-- Items -->
+                    <th:block th:each="item : ${order.items}">
+                      <table width="100%" cellpadding="0" cellspacing="0"
+                             style="margin-bottom:10px;">
+                        <tr>
+                          <td style="color:#374151;font-size:14px;"
+                              th:text="${item.productName + (item.variantName != null ? ' – ' + item.variantName : '')}">
+                            Product Name
+                          </td>
+                          <td style="color:#374151;font-size:14px;text-align:right;white-space:nowrap;">
+                            <span th:text="${item.quantity}">1</span> ×
+                            <span th:text="${'$' + item.unitPrice}">$0.00</span>
+                          </td>
+                        </tr>
+                      </table>
+                    </th:block>
+
+                    <hr style="border:none;border-top:1px solid #e2e8f0;margin:12px 0;"/>
+
+                    <!-- Totals -->
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="color:#6b7280;font-size:13px;padding:2px 0;">Subtotal</td>
+                        <td style="color:#374151;font-size:13px;text-align:right;"
+                            th:text="${'$' + order.subtotal}">$0.00</td>
+                      </tr>
+                      <tr th:if="${order.discountAmount != null and order.discountAmount > 0}">
+                        <td style="color:#16a34a;font-size:13px;padding:2px 0;">Discount</td>
+                        <td style="color:#16a34a;font-size:13px;text-align:right;"
+                            th:text="${'-$' + order.discountAmount}">-$0.00</td>
+                      </tr>
+                      <tr th:if="${order.shippingAmount != null and order.shippingAmount > 0}">
+                        <td style="color:#6b7280;font-size:13px;padding:2px 0;">Shipping</td>
+                        <td style="color:#374151;font-size:13px;text-align:right;"
+                            th:text="${'$' + order.shippingAmount}">$0.00</td>
+                      </tr>
+                      <tr th:if="${order.taxAmount != null and order.taxAmount > 0}">
+                        <td style="color:#6b7280;font-size:13px;padding:2px 0;">Tax</td>
+                        <td style="color:#374151;font-size:13px;text-align:right;"
+                            th:text="${'$' + order.taxAmount}">$0.00</td>
+                      </tr>
+                      <tr>
+                        <td style="color:#1e293b;font-size:15px;font-weight:700;padding-top:8px;">Total</td>
+                        <td style="color:#1e293b;font-size:15px;font-weight:700;text-align:right;padding-top:8px;"
+                            th:text="${'$' + order.total}">$0.00</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Shipping Address -->
+              <table width="100%" cellpadding="0" cellspacing="0"
+                     style="background:#f8faff;border-radius:8px;border:1px solid #e2e8f0;">
+                <tr>
+                  <td style="padding:20px 24px;">
+                    <p style="margin:0 0 8px;color:#1e293b;font-size:14px;font-weight:700;
+                               text-transform:uppercase;letter-spacing:0.5px;">Shipping To</p>
+                    <p style="margin:0;color:#374151;font-size:14px;line-height:1.7;">
+                      <span th:text="${order.shippingFirstName + ' ' + order.shippingLastName}">Name</span><br/>
+                      <span th:text="${order.shippingLine1}">Address</span><br/>
+                      <span th:if="${order.shippingLine2}" th:text="${order.shippingLine2 + ', '}"></span>
+                      <span th:text="${order.shippingCity + ', ' + order.shippingState}">City, State</span><br/>
+                      <span th:text="${order.shippingCountry}">Country</span>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:24px 0 0;color:#9ca3af;font-size:13px;line-height:1.6;">
+                We'll send you another email when your order ships. If you have any questions,
+                please contact our support team.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background:#f9fafb;padding:20px 40px;
+                       border-top:1px solid #e5e7eb;text-align:center;">
+              <p style="margin:0;color:#9ca3af;font-size:12px;">
+                &copy; 2025 Ecommerce Platform. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
